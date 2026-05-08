@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>PaddyGuard – Finding a Disease in Crop</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="css/style.css"/>
+</head>
+<body>
+
+  <!-- ══════════ HEADER ══════════ -->
+  <header>
+    <div class="header-inner">
+      <a class="logo" href="#" onclick="showPage('home')">
+        <div class="logo-icon">🌾</div>
+        <div class="logo-text">Paddy<span>Guard</span></div>
+      </a>
+      <nav>
+        <a href="#" class="active" id="nav-home"  onclick="showPage('home')">🏠 <span>Home</span></a>
+        <a href="#"               id="nav-guide" onclick="showPage('guide')">📖 <span>Disease Guide</span></a>
+      </nav>
+    </div>
+  </header>
+
+
+  <!-- ══════════════════════════════════
+       HOME PAGE
+  ══════════════════════════════════ -->
+  <div id="page-home" class="page active">
+
+    <section class="hero">
+
+      <!-- Left: Hero Text -->
+      <div class="hero-text">
+        <h1>Finding a <em>Disease</em> in Crop</h1>
+        <p>
+          Upload a photo of your paddy leaf and get an instant AI-powered diagnosis,
+          disease identification, and actionable treatment recommendations —
+          100% free, powered by <strong>Groq Cloud & Llama 4</strong>.
+        </p>
+        <div class="hero-badges">
+          <span class="badge">🆓 100% Free API</span>
+          <span class="badge">🤖 Llama 4 Scout</span>
+          <span class="badge">⚡ Instant Results</span>
+          <span class="badge">💊 Remedy Suggestions</span>
+        </div>
+        <button class="btn-primary" onclick="document.getElementById('api-key-field').focus()">
+          🔬 Start Diagnosis
+        </button>
+      </div>
+
+      <!-- Right: Upload Card -->
+      <div class="upload-card">
+        <h2>Diagnose Paddy Leaf</h2>
+        <p class="subtitle">Powered by Groq Cloud — ultra-fast Llama 4 Scout Vision model</p>
+
+        <!-- API Key -->
+        <div class="api-key-section">
+          <label>🔑 Groq API Key
+            <a href="https://console.groq.com/keys" target="_blank" class="get-key-link">
+              Get free key →
+            </a>
+          </label>
+          <input type="password" class="api-key-input" id="api-key-field" placeholder="gsk_..."/>
+          <p class="api-hint">Free tier · High rate limits · Get yours at console.groq.com</p>
+        </div>
+
+        <!-- Error -->
+        <div class="error-box" id="error-box"></div>
+
+        <!-- Drop Zone -->
+        <div class="dropzone" id="dropzone">
+          <input type="file" id="file-input" accept="image/*" onchange="handleFile(event)"/>
+          <span class="drop-icon">🍃</span>
+          <h3>Drop leaf image here</h3>
+          <p>or click to browse · JPG, PNG · Max 5MB</p>
+        </div>
+
+        <!-- Preview -->
+        <div id="preview-wrap">
+          <div class="scan-line"></div>
+          <img id="preview-img" src="" alt="Leaf Preview"/>
+          <button class="remove-btn" onclick="removeImage()" title="Remove">✕</button>
+        </div>
+
+        <!-- Diagnose -->
+        <button class="btn-diagnose" id="diagnose-btn" onclick="diagnose()" disabled>
+          🔬 Diagnose Leaf
+        </button>
+      </div>
+    </section>
+
+    <!-- AI Result -->
+    <div id="result-section">
+      <div class="result-card" id="result-card"></div>
+    </div>
+
+    <!-- Features -->
+    <section class="features-section">
+      <h2>Why PaddyGuard?</h2>
+      <div class="features-grid">
+        <div class="feature-card">
+          <span class="feature-emoji">🆓</span>
+          <h3>Completely Free</h3>
+          <p>Powered by Groq's generous free tier. No credit card required. Experience the world's fastest AI inference.</p>
+        </div>
+        <div class="feature-card">
+          <span class="feature-emoji">🔍</span>
+          <h3>Early Detection</h3>
+          <p>Identify diseases at their earliest onset to prevent widespread crop damage and minimize yield loss.</p>
+        </div>
+        <div class="feature-card">
+          <span class="feature-emoji">💊</span>
+          <h3>Actionable Insights</h3>
+          <p>Receive clear descriptions and practical remedy suggestions tailored to the detected disease.</p>
+        </div>
+      </div>
+    </section>
+
+  </div><!-- /page-home -->
+
+
+  <!-- ══════════════════════════════════
+       DISEASE GUIDE PAGE
+  ══════════════════════════════════ -->
+  <div id="page-guide" class="page">
+    <div class="guide-page">
+      <h1>Paddy Disease Guide</h1>
+      <p class="subtitle">Learn about common paddy leaf diseases, their symptoms, and preventive measures.</p>
+
+      <div class="disease-grid">
+
+        <div class="disease-card">
+          <div class="disease-card-header">
+            <div class="disease-dot" style="background:#4caf50"></div>
+            <h3>Healthy Leaf</h3>
+          </div>
+          <div class="disease-card-body">
+            <p>A healthy paddy leaf is vibrant green, smooth, and free from spots or lesions. Crucial for photosynthesis and optimal grain yield.</p>
+            <span class="disease-tag" style="background:rgba(76,175,80,0.12);color:#2d6a36">✅ No Treatment Needed</span>
+          </div>
+        </div>
+
+        <div class="disease-card">
+          <div class="disease-card-header">
+            <div class="disease-dot" style="background:#8B4513"></div>
+            <h3>Brown Spot</h3>
+          </div>
+          <div class="disease-card-body">
+            <p>Fungal disease caused by <em>Cochliobolus miyabeanus</em>. Oval to circular brown spots with yellow halos. Causes significant yield loss.</p>
+            <span class="disease-tag" style="background:rgba(139,69,19,0.1);color:#8B4513">🍄 Fungal Disease</span>
+          </div>
+        </div>
+
+        <div class="disease-card">
+          <div class="disease-card-header">
+            <div class="disease-dot" style="background:#e67e22"></div>
+            <h3>Hispa</h3>
+          </div>
+          <div class="disease-card-body">
+            <p>Caused by <em>Dicladispa armigera</em>. Adults scrape leaf surface; grubs mine inside leaves creating white blotchy streaks.</p>
+            <span class="disease-tag" style="background:rgba(230,126,34,0.12);color:#d35400">🐛 Insect Pest</span>
+          </div>
+        </div>
+
+        <div class="disease-card">
+          <div class="disease-card-header">
+            <div class="disease-dot" style="background:#e74c3c"></div>
+            <h3>Bacterial Leaf Blight</h3>
+          </div>
+          <div class="disease-card-body">
+            <p>Caused by <em>Xanthomonas oryzae pv. oryzae</em>. Water-soaked yellowish lesions along leaf margins. One of the most destructive diseases.</p>
+            <span class="disease-tag" style="background:rgba(231,76,60,0.1);color:#c0392b">🦠 Bacterial Disease</span>
+          </div>
+        </div>
+
+        <div class="disease-card">
+          <div class="disease-card-header">
+            <div class="disease-dot" style="background:#7f8c8d"></div>
+            <h3>Leaf Smut</h3>
+          </div>
+          <div class="disease-card-body">
+            <p>Caused by <em>Entyloma oryzae</em>. Small angular black spots on leaf blades. Generally minor but can reduce photosynthesis efficiency.</p>
+            <span class="disease-tag" style="background:rgba(127,140,141,0.12);color:#596b6d">🍄 Fungal Disease</span>
+          </div>
+        </div>
+
+        <div class="disease-card">
+          <div class="disease-card-header">
+            <div class="disease-dot" style="background:#9b59b6"></div>
+            <h3>Leaf Blast</h3>
+          </div>
+          <div class="disease-card-body">
+            <p>Caused by <em>Magnaporthe oryzae</em>. Diamond-shaped lesions with gray centers and brown borders. Highly destructive, favored by cool temperatures.</p>
+            <span class="disease-tag" style="background:rgba(155,89,182,0.1);color:#8e44ad">🍄 Fungal Disease</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div><!-- /page-guide -->
+
+
+  <!-- ══════════ FOOTER ══════════ -->
+  <footer>
+    © 2025 <strong>PaddyGuard</strong> · Powered by <strong>Groq & Llama 4 Scout Vision</strong> · Helping farmers protect their fields.
+  </footer>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
